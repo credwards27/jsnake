@@ -39,6 +39,62 @@ jsnake = jsnake || (function() {
 		return this;
 	};
 	
+	/* Extends the system (sys.fn) or a specified target object. Reference or
+		deep copy.
+		key - Key string for the object being attached. This will be the
+			identifier to reference the attached object on the extended object.
+		src - Source object or array to attach to sys.fn or target.
+		deepCopy - True to deep copy the source object, false or omit to attach
+			by reference.
+		target - Alternate object to extend. If omitted, or not plain object or
+			array, src will extend sys.fn.
+		
+		Returns the object being attached.
+	*/
+	sys.extend = sys.fn.extend = function(key, src, deepCopy, target) {
+		// Exit if key is not a string or number
+		if (typeof key !== "string" && typeof key !== "number") {
+			return;
+		}
+		
+		// Validate arguments
+		deepCopy = deepCopy ? true : false;
+		target = typeof target === "object" ? target : sys.fn;
+		
+		// Attach and return src if not an object literal or array
+		if (typeof src !== "object" && (src instanceof Array) === false) {
+			target[key] = src;
+			return src;
+		}
+		
+		var subObj, i, l, k;
+		
+		if (deepCopy === true) {
+			// Traverse object or array
+			if (src instanceof Array) {
+				// Array
+				for (i=0, l=src.length; i<l; i++) {
+					target[key] = target[key] || [];
+					sys.extend(i, src[i], deepCopy, target[key]);
+				}
+			}
+			else {
+				// Object literal
+				for (k in src) {
+					if (src.hasOwnProperty(k) === true) {
+						target[key] = target[key] || {};
+						sys.extend(k, src[k], deepCopy, target[key]);
+					}
+				}
+			}
+		}
+		else {
+			// Attach reference
+			target[key] = src;
+			return;
+		}
+	}
+	
 	/*
 	 * SYSTEM CLASSES
 	*/
