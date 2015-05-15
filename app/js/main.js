@@ -24,7 +24,7 @@ jsnake = jsnake || {
 	c: {},
 	
 	// Collection of global utility functions.
-	fn: {},
+	u: {},
 	
 	/* Main program initializer.
 	*/

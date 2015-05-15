@@ -7,7 +7,10 @@
 
 "use strict";
 
-sys.fn = {
+sys.u = {
+	// Degrees to radians conversion constant.
+	RAD_CONVERT: Math.PI / 180,
+	
 	/* Deep copies an object or array.
 		src - The source object or array to deep copy.
 		
