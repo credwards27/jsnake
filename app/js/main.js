@@ -29,6 +29,7 @@ jsnake = jsnake || {
 	/* Main program initializer.
 	*/
 	init: function() {
+		this.g.gameManager = new this.c.GameManager(this.g.settings);
 	}
 };
 

@@ -21,5 +21,9 @@
 <script type="application/javascript" src="js/utils.js"></script>
 <script type="application/javascript" src="js/components/GameManager.js"></script>
 
+<script type="application/javascript">
+jsnake.init();
+</script>
+
 </body>
 </html>
