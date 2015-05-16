@@ -72,8 +72,22 @@ function Board(canvas, context, settings) {
 	/* Builds the grid array.
 	*/
 	function buildGrid() {
-		console.log(mSlotWidth);
-		console.log(mSlotHeight);
+		if (mGrid !== null) {
+			return;
+		}
+		
+		var row = [],
+			col, i, j;
+		
+		for (i=0; i<mWidth; i++) {
+			col = [];
+			
+			for (j=0; j<mHeight; j++) {
+				// Add slot
+			}
+			
+			row.push(col);
+		}
 	}
 	
 	// Initializer
