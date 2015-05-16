@@ -16,6 +16,12 @@ settings.gm = {
 	fps: 60
 };
 
+// Game board settings.
+settings.board = {
+	width: 32,
+	height: 24
+};
+
 sys.g.settings = settings;
 
 })(jsnake);

@@ -60,6 +60,15 @@ sys.u = {
 	*/
 	isCanvas: function(elem) {
 		return (elem !== null && elem.tagName.toLowerCase() === "canvas");
+	},
+	
+	/* Checks whether or not a specified object is a valid canvas context.
+		ctx - Canvas 2D ontext object.
+		
+		Returns true if ctx is an instance of CanvasRenderingContext2D.
+	*/
+	isContext: function(ctx) {
+		return ctx instanceof CanvasRenderingContext2D;
 	}
 };
 

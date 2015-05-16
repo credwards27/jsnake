@@ -28,7 +28,7 @@ function GameManager(id, settings) {
 	// Milliseconds per frame.
 	MSPF = 1000 / FPS,
 	
-	// Input manager for the game.
+	// Input manager instance container.
 	mInputManager = null,
 	
 	// Game loop interval ID.
@@ -38,7 +38,10 @@ function GameManager(id, settings) {
 	mCanvas = null,
 	
 	// Canvas context.
-	mContext = null;
+	mContext = null,
+	
+	// Game board instance container.
+	mBoard = null;
 	
 	/*
 	 * PUBLIC VARIABLES
@@ -85,8 +88,11 @@ function GameManager(id, settings) {
 				"Parameter 'id' must be the ID string for a canvas element.");
 		}
 		
+		mContext = mCanvas.getContext("2d");
+		
 		// Instantiate subsystems
 		mInputManager = new sys.c.InputManager(mCanvas);
+		mBoard = new sys.c.Board(mCanvas, mContext);
 	})();
 };
 
