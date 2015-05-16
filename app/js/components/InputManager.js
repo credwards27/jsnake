@@ -1,6 +1,7 @@
 /* InputManager.js
 	
-	Attaches and assigns user inputs for the game.
+	Attaches and assigns user inputs for the game. Also contains private class
+	Input, which represents a triggerable input object (keyboard or mouse).
 */
 
 (function(sys) {
@@ -12,6 +13,10 @@
 */
 function InputManager(canvas) {
 	// Default parameters
+	if (sys.u.isCanvas(canvas) === false) {
+		throw new sys.c.GameError(
+			"Parameter 'canvas' must be a canvas DOM element.");
+	}
 	
 	/*
 	 * PRIVATE VARIABLES
@@ -128,11 +133,6 @@ function InputManager(canvas) {
 	
 	// Initializer
 	(function() {
-		if (sys.u.isCanvas(mCanvas) === false) {
-			throw new sys.c.GameError(
-				"Parameter 'canvas' must be a canvas DOM element.");
-		}
-		
 		// Set key code property string
 		var tempEvt = new KeyboardEvent(null);
 		if (tempEvt.hasOwnProperty("which") === true) {
