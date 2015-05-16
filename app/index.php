@@ -20,6 +20,7 @@
 <script type="application/javascript" src="js/settings.js"></script>
 <script type="application/javascript" src="js/utils.js"></script>
 <script type="application/javascript" src="js/components/GameManager.js"></script>
+<script type="application/javascript" src="js/components/InputManager.js"></script>
 
 <script type="application/javascript">
 jsnake.init("gameView");

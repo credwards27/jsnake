@@ -28,6 +28,9 @@ function GameManager(id, settings) {
 	// Milliseconds per frame.
 	MSPF = 1000 / FPS,
 	
+	// Input manager for the game.
+	mInputManager = null,
+	
 	// Game loop interval ID.
 	mLoopId = -1,
 	
@@ -81,6 +84,9 @@ function GameManager(id, settings) {
 			throw new GameError(
 				"Parameter 'id' must be the ID string for a canvas element.");
 		}
+		
+		// Instantiate subsystems
+		mInputManager = new sys.c.InputManager(mCanvas);
 	})();
 };
 
