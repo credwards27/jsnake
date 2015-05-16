@@ -65,6 +65,44 @@ function Board(canvas, context, settings) {
 	 * PRIVILEGED FUNCTIONS
 	*/
 	
+	/* Returns the number of slot columns in the grid.
+	*/
+	this.getColumns = function() {
+		return mColumns;
+	};
+	
+	/* Returns the number of slot rows in the grid.
+	*/
+	this.getRows = function() {
+		return mRows;
+	};
+	
+	/* Returns the slot for a specified column and row index.
+		col - Column index.
+		row - Row index.
+		
+		Throws an error if out of range of the grid matrix.
+	*/
+	this.getSlot = function(col, row) {
+		// Verify numbers
+		if (typeof col !== "number" || typeof row !== "number") {
+			throw new sys.c.GameError(
+				"Parameters 'col' and 'row' must be numbers.");
+		}
+		
+		// Truncate decimals
+		col = parseInt(col, 10);
+		row - parseInt(row, 10);
+		
+		// Check if in range
+		if (col >= mColumns || row >= mRows || col < 0 || row < 0) {
+			throw new sys.c.GameError(
+				"Slot " + col + ":" + row + " is out of range.");
+		}
+		
+		return mGrid[col][row];
+	};
+	
 	/*
 	 * PRIVATE FUNCTIONS
 	*/
@@ -76,17 +114,16 @@ function Board(canvas, context, settings) {
 			return;
 		}
 		
-		var row = [],
-			col, i, j;
+		var row, i, j;
 		
-		for (i=0; i<mWidth; i++) {
-			col = [];
+		mGrid = mGrid || [];
+		
+		for (i=0; i<mColumns; i++) {
+			mGrid[i] = [];
 			
-			for (j=0; j<mHeight; j++) {
+			for (j=0; j<mRows; j++) {
 				// Add slot
 			}
-			
-			row.push(col);
 		}
 	}
 	
