@@ -72,4 +72,12 @@ sys.u = {
 	}
 };
 
+/*
+ * CROSS-BROWSER POLYFILLS
+ */
+
+String.prototype.trim = String.prototype.trim || function(str) {
+	return str.replace(/^\s+|\s+$/g, "");
+}
+
 })(jsnake);
