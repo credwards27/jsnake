@@ -11,6 +11,16 @@ sys.u = {
 	// Degrees to radians conversion constant.
 	RAD_CONVERT: Math.PI / 180,
 	
+	// Keyboard codes.
+	keys: {
+		A: 65,
+		D: 68,
+		S: 83,
+		W: 87,
+		SPACE: 32,
+		MOUSE: "mouse"
+	},
+	
 	/* Deep copies an object or array.
 		src - The source object or array to deep copy.
 		
