@@ -27,7 +27,9 @@ jsnake = jsnake || {
 	u: {},
 	
 	/* Main program initializer.
-		id - ID string for the game canvas.
+		id - ID string for the game canvas. Canvas width is determined by width
+			and height attributes, so canvas should not have its own padding
+			if also using box-sizing: border-box.
 	*/
 	init: function(id) {
 		this.g.gameManager = new this.c.GameManager(id, this.g.settings.gm);

@@ -43,16 +43,16 @@ function Board(canvas, context, settings) {
 	mHeight = typeof settings.height === "number" ? settings.height : 24,
 	
 	// Single grid slot width.
-	mSlotWidth = null,
+	mSlotWidth = mCanvas.width / mWidth,
 	
 	// Single grid slot height.
-	mSlotHeight = null,
+	mSlotHeight = mCanvas.height / mHeight,
 	
 	// Cached slot half width.
-	mSlotHalfWidth = null,
+	mSlotHalfWidth = mSlotWidth * 0.5,
 	
 	// Cached slot half height.
-	mSlotHalfHeight = null,
+	mSlotHalfHeight = mSlotHeight * 0.5,
 	
 	// Grid array.
 	mGrid = null;
@@ -72,6 +72,8 @@ function Board(canvas, context, settings) {
 	/* Builds the grid array.
 	*/
 	function buildGrid() {
+		console.log(mSlotWidth);
+		console.log(mSlotHeight);
 	}
 	
 	// Initializer
