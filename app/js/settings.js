@@ -18,8 +18,8 @@ settings.gm = {
 
 // Game board settings.
 settings.board = {
-	width: 32,
-	height: 24
+	slotsX: 32,
+	slotsY: 24
 };
 
 sys.g.settings = settings;

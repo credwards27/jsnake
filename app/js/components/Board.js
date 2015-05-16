@@ -37,10 +37,10 @@ function Board(canvas, context, settings) {
 	mContext = context,
 	
 	// Number of grid slots along the x axis.
-	mWidth = typeof settings.width === "number" ? settings.width : 32,
+	mWidth = typeof settings.slotsX === "number" ? settings.slotsX : 32,
 	
 	// Number of grid slots along the y axis.
-	mHeight = typeof settings.height === "number" ? settings.height : 24,
+	mHeight = typeof settings.slotsY === "number" ? settings.slotsY : 24,
 	
 	// Single grid slot width.
 	mSlotWidth = mCanvas.width / mWidth,
