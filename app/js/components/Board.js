@@ -114,7 +114,7 @@ function Board(canvas, context, settings) {
 			return;
 		}
 		
-		var row, i, j;
+		var i, j;
 		
 		mGrid = mGrid || [];
 		
@@ -123,6 +123,7 @@ function Board(canvas, context, settings) {
 			
 			for (j=0; j<mRows; j++) {
 				// Add slot
+				mGrid[i][j] = new sys.c.Slot(mSelf, i, j);
 			}
 		}
 	}
