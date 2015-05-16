@@ -33,15 +33,15 @@ sys.u = {
 			// Copy array
 			newObj = [];
 			for (i=0, l=src.length; i<l; i++) {
-				newObj.push(sys.fn.deepCopy(src[i]));
+				newObj.push(sys.u.deepCopy(src[i]));
 			}
 		}
-		else if (typeof src === "object") {
+		else if (src !== null && typeof src === "object") {
 			// Copy object literal
 			newObj = {};
 			for (k in src) {
 				if (src.hasOwnProperty(k) === true) {
-					newObj[k] = sys.fn.deepCopy(src[k]);
+					newObj[k] = sys.u.deepCopy(src[k]);
 				}
 			}
 		}
