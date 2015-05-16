@@ -150,6 +150,10 @@ function InputManager(canvas) {
 	})();
 }
 
+/*
+ * STATIC FUNCTIONS
+*/
+
 /* Constructor for Input class object.
 	code - Numerical code for the input, omit for codeless input (i.e. mouse).
 */
@@ -211,7 +215,7 @@ function Input(code) {
 		args - Arguments to be passed to the handler function.
 	*/
 	this.addHandler = function(direction, handler, args) {
-		var hSet = mHandlers[sanitizeDirection(direction)];
+		var hSet = mHandlers[Input.prototype.sanitizeDirection(direction)];
 		if (typeof handler === "function") {
 			hSet.push({ handler: handler, args: args });
 		}
@@ -221,7 +225,7 @@ function Input(code) {
 		direction - Input action direction ("on" or "off", defaults to "on").
 	*/
 	this.fireHandlers = function(direction) {
-		var hSet = mHandlers[sanitizeDirection(direction)],
+		var hSet = mHandlers[Input.prototype.sanitizeDirection(direction)],
 			h, i, l;
 		
 		for (i=0, l=hSet.length; i<l; i++) {
@@ -233,19 +237,6 @@ function Input(code) {
 	 * PRIVATE FUNCTIONS
 	*/
 	
-	/* Sanitizes an input direction string.
-		direction - Input action direction string ("on" or "off").
-		
-		Returns the sanitized input direction string, defaults to "on".
-	*/
-	function sanitizeDirection(direction) {
-		if (typeof direction === "string") {
-			return direction.toLowerCase() === "off" ? "off" : "on";
-		}
-		
-		return "on";
-	}
-	
 	// Initializer
 	(function() {
 		CODE = typeof code === "number" ? code : false;
@@ -256,14 +247,20 @@ function Input(code) {
  * STATIC FUNCTIONS
 */
 
-/*
- * STATIC INITIALIZERS
+/* Sanitizes an input direction string.
+	direction - Input action direction string ("on" or "off").
+	
+	Returns the sanitized input direction string, defaults to "on".
 */
-
-
-/*
- * STATIC FUNCTIONS
-*/
+Input.prototype = {
+		sanitizeDirection: function(direction) {
+		if (typeof direction === "string") {
+			return direction.toLowerCase() === "off" ? "off" : "on";
+		}
+		
+		return "on";
+	}
+};
 
 /*
  * STATIC INITIALIZERS
