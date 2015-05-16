@@ -92,7 +92,7 @@ function GameManager(id, settings) {
 		
 		// Instantiate subsystems
 		mInputManager = new sys.c.InputManager(mCanvas);
-		mBoard = new sys.c.Board(mCanvas, mContext);
+		mBoard = new sys.c.Board(mCanvas, mContext, sys.g.settings.board);
 	})();
 };
 
