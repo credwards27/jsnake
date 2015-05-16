@@ -27,9 +27,10 @@ jsnake = jsnake || {
 	u: {},
 	
 	/* Main program initializer.
+		id - ID string for the game canvas.
 	*/
-	init: function() {
-		this.g.gameManager = new this.c.GameManager(this.g.settings);
+	init: function(id) {
+		this.g.gameManager = new this.c.GameManager(id, this.g.settings);
 	}
 };
 

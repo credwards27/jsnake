@@ -41,6 +41,15 @@ sys.u = {
 		}
 		
 		return newObj;
+	},
+	
+	/* Checks whether or not a specified element is a canvas element.
+		elem - DOM element to be checked.
+		
+		Returns true if elem is a canvas element, false otherwise.
+	*/
+	isCanvas: function(elem) {
+		return (elem !== null && elem.tagName.toLowerCase() === "canvas");
 	}
 };
 

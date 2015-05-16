@@ -8,9 +8,10 @@
 "use strict";
 
 /* Constructor for game manager object.
+	id - ID string for the game canvas.
 	settings - Settings object for the game.
 */
-function GameManager(settings) {
+function GameManager(id, settings) {
 	// Default parameters
 	settings = typeof settings === "object" ? settings : {};
 	
@@ -28,7 +29,13 @@ function GameManager(settings) {
 	MSPF = 1000 / FPS,
 	
 	// Game loop interval ID.
-	mLoopId = -1;
+	mLoopId = -1,
+	
+	// Canvas DOM element.
+	mCanvas = null,
+	
+	// Canvas context.
+	mContext = null;
 	
 	/*
 	 * PUBLIC VARIABLES
@@ -67,9 +74,26 @@ function GameManager(settings) {
 	
 	// Initializer
 	(function() {
-		mSelf.startLoop();
+		mCanvas = document.getElementById(id);
+		
+		// Error check
+		if (sys.u.isCanvas(mCanvas) === false) {
+			throw new GameError(
+				"Parameter 'id' must be the ID string for a canvas element.");
+		}
 	})();
 };
+
+/* Custom game error class.
+	msg - Message to be displayed with error.
+*/
+function GameError(msg) {
+	this.name = "GameError";
+	this.message = msg;
+	this.stack = (new Error()).stack;
+}
+GameError.prototype = Object.create(Error.prototype);
+GameError.prototype.constructor = GameError;
 
 /*
  * STATIC FUNCTIONS
@@ -80,5 +104,6 @@ function GameManager(settings) {
 */
 
 sys.c.GameManager = GameManager;
+sys.c.GameError = GameError;
 
 })(jsnake);

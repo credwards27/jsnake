@@ -22,7 +22,7 @@
 <script type="application/javascript" src="js/components/GameManager.js"></script>
 
 <script type="application/javascript">
-jsnake.init();
+jsnake.init("gameView");
 </script>
 
 </body>
