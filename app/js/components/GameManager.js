@@ -23,7 +23,7 @@ function GameManager(id, settings) {
 	var mSelf = this,
 	
 	// Frames per second.
-	FPS = typeof settings.gm.fps === "number" ? settings.gm.fps : 60,
+	FPS = typeof settings.fps === "number" ? settings.fps : 60,
 	
 	// Milliseconds per frame.
 	MSPF = 1000 / FPS,
