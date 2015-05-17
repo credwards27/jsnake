@@ -247,13 +247,13 @@ function Input(code) {
  * STATIC FUNCTIONS
 */
 
-/* Sanitizes an input direction string.
-	direction - Input action direction string ("on" or "off").
-	
-	Returns the sanitized input direction string, defaults to "on".
-*/
 Input.prototype = {
-		sanitizeDirection: function(direction) {
+	/* Sanitizes an input direction string.
+		direction - Input action direction string ("on" or "off").
+		
+		Returns the sanitized input direction string, defaults to "on".
+	*/
+	sanitizeDirection: function(direction) {
 		if (typeof direction === "string") {
 			return direction.toLowerCase() === "off" ? "off" : "on";
 		}
