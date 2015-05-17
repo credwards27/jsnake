@@ -23,10 +23,10 @@ function GameManager(id, settings) {
 	var mSelf = this,
 	
 	// Frames per second.
-	FPS = typeof settings.fps === "number" ? settings.fps : 60,
+	FPS = 60,
 	
 	// Milliseconds per frame.
-	MSPF = 1000 / FPS,
+	MSPF = -1,
 	
 	// Input manager instance container.
 	mInputManager = null,
@@ -76,10 +76,19 @@ function GameManager(id, settings) {
 	
 	function update() {
 		console.log("running");
+		
+		mContext.clearRect(0, 0, mCanvas.width, mCanvas.height);
 	}
 	
 	// Initializer
 	(function() {
+		// Set FPS and MSPF
+		if (typeof settings.fps === "number" && settings.fps > 0) {
+			FPS = settings.fps;
+		}
+		
+		MSPF = 1000 / FPS;
+		
 		mCanvas = document.getElementById(id);
 		
 		// Error check
