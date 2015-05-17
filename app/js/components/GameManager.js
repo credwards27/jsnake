@@ -41,7 +41,10 @@ function GameManager(id, settings) {
 	mContext = null,
 	
 	// Game board instance container.
-	mBoard = null;
+	mBoard = null,
+	
+	// Snake player instance container.
+	mSnake = null;
 	
 	/*
 	 * PUBLIC VARIABLES
@@ -102,6 +105,9 @@ function GameManager(id, settings) {
 		// Instantiate subsystems
 		mInputManager = new sys.c.InputManager(mCanvas);
 		mBoard = new sys.c.Board(mCanvas, mContext, sys.g.settings.board);
+		mSnake = new sys.c.Snake(mContext, mBoard, sys.g.settings.snake);
+		
+		mSnake.init();
 	})();
 };
 

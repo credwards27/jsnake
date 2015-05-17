@@ -54,7 +54,10 @@ function Slot(board, col, row) {
 	mCoords = {
 		x: 0,
 		y: 0
-	};
+	},
+	
+	// Container for contents of slot, default empty is null.
+	mContents = null;
 	
 	/*
 	 * PUBLIC VARIABLES
@@ -70,7 +73,7 @@ function Slot(board, col, row) {
 	*/
 	this.getLocation = function() {
 		return { col: mCol, row: mRow };
-	}
+	};
 	
 	/* Returns the x and y coordinates for the slot.
 	*/
@@ -114,7 +117,20 @@ function Slot(board, col, row) {
 	*/
 	this.getNeighbors = function() {
 		return sys.u.deepCopy(mNeighbors);
-	}
+	};
+	
+	/* Returns the contents of the slot (reference if not primitive type).
+	*/
+	this.getContents = function() {
+		return mContents;
+	};
+	
+	/* Sets the contents of the slot.
+		contents - New object for the slot to contain.
+	*/
+	this.setContents = function(contents) {
+		mContents = contents;
+	};
 	
 	/*
 	 * PRIVATE FUNCTIONS

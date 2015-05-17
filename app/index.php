@@ -23,6 +23,8 @@
 <script type="application/javascript" src="js/components/InputManager.js"></script>
 <script type="application/javascript" src="js/components/Board.js"></script>
 <script type="application/javascript" src="js/components/Slot.js"></script>
+<script type="application/javascript" src="js/components/Snake.js"></script>
+<script type="application/javascript" src="js/components/Joint.js"></script>
 
 <script type="application/javascript">
 jsnake.init("gameView");

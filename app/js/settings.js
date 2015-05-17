@@ -25,6 +25,15 @@ settings.board = {
 	rows: 24
 };
 
+// Snake settings.
+settings.snake = {
+	width: 18,
+	startLength: 5,
+	startCol: 12,
+	startRow: 18,
+	startDirection: "right"
+};
+
 sys.g.settings = settings;
 
 })(jsnake);

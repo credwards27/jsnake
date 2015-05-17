@@ -103,6 +103,13 @@ function Board(canvas, context, settings) {
 		return mGrid[col][row];
 	};
 	
+	/* Returns the slot width and height for the board.
+		{ width: Number, height: Number }
+	*/
+	this.getSlotSize = function() {
+		return { width: mSlotWidth, height: mSlotHeight };
+	};
+	
 	/*
 	 * PRIVATE FUNCTIONS
 	*/
