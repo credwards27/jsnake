@@ -114,16 +114,21 @@ function Board(canvas, context, settings) {
 			return;
 		}
 		
-		var i, j;
+		var slot, col, row;
 		
 		mGrid = mGrid || [];
 		
-		for (i=0; i<mColumns; i++) {
-			mGrid[i] = [];
+		for (col=0; col<mColumns; col++) {
+			mGrid[col] = [];
 			
-			for (j=0; j<mRows; j++) {
+			for (row=0; row<mRows; row++) {
 				// Add slot
-				mGrid[i][j] = new sys.c.Slot(mSelf, i, j);
+				slot = new sys.c.Slot(mSelf, col, row);
+				slot.setCoords({
+					x: (mSlotWidth * col) + mSlotHalfWidth,
+					y: (mSlotWidth * row) + mSlotHalfHeight
+				});
+				mGrid[col][row] = slot;
 			}
 		}
 	}

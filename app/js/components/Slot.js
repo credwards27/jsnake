@@ -48,6 +48,12 @@ function Slot(board, col, row) {
 		right: null,
 		top: null,
 		bottom: null
+	},
+	
+	// X and y coordinates for the center of the slot.
+	mCoords = {
+		x: 0,
+		y: 0
 	};
 	
 	/*
@@ -62,9 +68,26 @@ function Slot(board, col, row) {
 		Returns an index position object.
 		{ col: Number, row: Number }
 	*/
-	this.getPosition = function() {
+	this.getLocation = function() {
 		return { col: mCol, row: mRow };
 	}
+	
+	/* Returns the x and y coordinates for the slot.
+	*/
+	this.getCoords = function() {
+		return sys.u.deepCopy(mCoords);
+	};
+	
+	/* Sets the x and y coordinates for the center of the slot.
+		coords - X and y coordinates for the slot.
+			{ x: Number, y: Number }
+	*/
+	this.setCoords = function(coords) {
+		mCoords.x = typeof coords.x === "number" ?
+			parseInt(coords.x, 10) : mCoords.x;
+		mCoords.y = typeof coords.y === "number" ?
+			parseInt(coords.y, 10) : mCoords.y;
+	};
 	
 	/* Gets the indices for a specified neighbor slot.
 		edge - Edge shared by the target neighbor ("left", "right", "top",
