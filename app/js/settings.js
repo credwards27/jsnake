@@ -25,7 +25,7 @@ settings.board = {
 // Snake settings.
 settings.snake = {
 	// Snake slot movements per second.
-	speed: 5,
+	speed: 8,
 	startLength: 15,
 	startCol: 15,
 	startRow: 16,
