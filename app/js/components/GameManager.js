@@ -101,6 +101,7 @@ function GameManager(id, settings) {
 		}
 		
 		mContext = mCanvas.getContext("2d");
+		sys.g.context = mContext;
 		
 		// Instantiate subsystems
 		mInputManager = new sys.c.InputManager(mCanvas);
@@ -108,6 +109,7 @@ function GameManager(id, settings) {
 		mSnake = new sys.c.Snake(mContext, mBoard, sys.g.settings.snake);
 		
 		mSnake.init();
+		window.snake = mSnake;
 	})();
 };
 
