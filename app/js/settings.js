@@ -27,7 +27,7 @@ settings.board = {
 
 // Snake settings.
 settings.snake = {
-	width: 18,
+	width: 16,
 	startLength: 5,
 	startCol: 12,
 	startRow: 18,
