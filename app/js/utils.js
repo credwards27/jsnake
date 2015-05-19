@@ -13,11 +13,34 @@ sys.u = {
 	
 	// Keyboard codes.
 	keys: {
+		// A key.
 		A: 65,
+		
+		// D key.
 		D: 68,
+		
+		// S key.
 		S: 83,
+		
+		// W key.
 		W: 87,
+		
+		// Left arrow key.
+		ARROW_LEFT: 37,
+		
+		// Right arrow key.
+		ARROW_RIGHT: 39,
+		
+		// Up arrow key.
+		ARROW_UP: 38,
+		
+		// Down arrow key.
+		ARROW_DOWN: 40,
+		
+		// Space bar.
 		SPACE: 32,
+		
+		// Mouse button.
 		MOUSE: "mouse"
 	},
 	

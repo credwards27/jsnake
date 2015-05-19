@@ -34,26 +34,9 @@ function InputManager(canvas) {
 	// True when canvas was the last element clicked, false otherwise.
 	mCanvasFocus = false,
 	
-	// Input objects, keyed by key codes or unique identifiers.
-	mKeys = {
-		// A key.
-		65: new Input(65),
-		
-		// D key.
-		68: new Input(68),
-		
-		// S key.
-		83: new Input(83),
-		
-		// W key.
-		87: new Input(87),
-		
-		// Space key.
-		32: new Input(32),
-		
-		// Mouse button.
-		mouse: new Input()
-	};
+	// Input objects, keyed by key codes or unique identifiers. These should be
+	// defined in utils.
+	mKeys = {};
 	
 	/*
 	 * PUBLIC VARIABLES
@@ -134,12 +117,23 @@ function InputManager(canvas) {
 	// Initializer
 	(function() {
 		// Set key code property string
-		var tempEvt = new KeyboardEvent(null);
+		var tempEvt = new KeyboardEvent(null),
+			keys = sys.u.keys,
+			code, k;
+		
 		if (tempEvt.hasOwnProperty("which") === true) {
 			WHICH = "which";
 		}
 		else if (tempEvt.hasOwnProperty("keyCode") === true) {
 			WHICH = "keyCode";
+		}
+		
+		// Initialize inputs from utils
+		for (k in keys) {
+			if (keys.hasOwnProperty(k) === true) {
+				code = keys[k];
+				mKeys[code] = new Input(k);
+			}
 		}
 		
 		// Attach event handlers
