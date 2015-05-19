@@ -65,6 +65,12 @@ function Snake(context, board, settings) {
 	// Snake line join shape.
 	mLineJoin = "round",
 	
+	// Game step duration in milliseconds.
+	mStepDuration = null,
+	
+	// Elapsed time in the current game step.
+	mCurrStep = 0,
+	
 	// Starting length (number of joints).
 	mStartLength = -1,
 	
@@ -182,11 +188,18 @@ function Snake(context, board, settings) {
 	};
 	
 	/* Update loop actions.
+		dt - Delta time since last update.
 	*/
-	this.update = function() {
-		mContext.clearRect(0, 0, 640, 480);
-		mSelf.move();
-		mLastDirection = sys.u.deepCopy(mHeadDirection);
+	this.update = function(dt) {
+		mCurrStep += dt;
+		
+		// Move if step duration has been reached
+		if (mCurrStep >= mStepDuration) {
+			mSelf.move();
+			mLastDirection = sys.u.deepCopy(mHeadDirection);
+			mCurrStep -= mStepDuration;
+		}
+		
 		paint();
 	};
 	
@@ -336,6 +349,10 @@ function Snake(context, board, settings) {
 			startRow = settings.startRow,
 			input = sys.g.inputManager,
 			keys = sys.u.keys;
+		
+		// Set snake speed
+		mStepDuration = 1000 / (typeof settings.speed === "number" ?
+			settings.speed : 3);
 		
 		// Store start length
 		if (typeof startLength === "number") {
