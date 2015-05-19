@@ -373,7 +373,6 @@ function Snake(context, board, settings) {
 		input.onInput(mKeys.ARROW_UP, "on", changeDirection, mKeys.ARROW_UP);
 		input.onInput(mKeys.ARROW_DOWN, "on", changeDirection,
 			mKeys.ARROW_DOWN);
-		input.onInput(mKeys.SPACE, "on", mSelf.update);
 	})();
 }
 
