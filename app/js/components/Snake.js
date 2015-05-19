@@ -130,15 +130,14 @@ function Snake(context, board, settings) {
 		Returns the new joint.
 	*/
 	this.addJoint = function() {
-		var newJoint = new sys.c.Joint(),
-			tailLoc, col, row;
+		var newJoint = new sys.c.Joint();
+		
 		// Add new joint and adjust length
 		mJoints.push(newJoint);
 		mLength++;
 		
 		if (mLength === 1) {
 			// Set new joint as head
-			newJoint
 			mHead = newJoint;
 			mHead.setSlot(mBoard.getSlot(mStartCol, mStartRow));
 			mHead.setDirection(mStartDirection);
@@ -148,18 +147,8 @@ function Snake(context, board, settings) {
 			mTail.setPrev(newJoint);
 			newJoint.setNext(mTail);
 			
-			tailLoc = mTail.getSlot().getLocation();
-			col = tailLoc.col;
-			row = tailLoc.row;
-			
-			if (mTailDirection.axis === "x") {
-				col -= mTailDirection.incr;
-			}
-			else {
-				row -= mTailDirection.incr;
-			}
-			
-			newJoint.setSlot(mBoard.getSlot(col, row));
+			// Set slot and direction (direction matches old tail)
+			newJoint.setSlot(getNextSlot(mTail, true));
 			newJoint.setDirection(mTail.getDirection());
 		}
 		
@@ -223,6 +212,40 @@ function Snake(context, board, settings) {
 			
 			curr = curr[next]();
 		}
+	}
+	
+	/* Gets the column and row for an adjacent slot based on a given joint's
+		direction.
+		
+		joint - Joint object for which to retrieve an adjacent slot.
+		invert - True to get slot behind joint, omit for slot in front of joint.
+		
+		Returns a slot object in front of or behind specified joint (depending
+			on invert flag).
+	*/
+	function getNextSlot(joint, invert) {
+		if ((joint instanceof sys.c.Joint) === false) {
+			throw new sys.c.GameError(
+				"Parameter 'joint' must be a Joint object.");
+		}
+		
+		// Get slot location for new joint
+		var nextLoc = joint.getSlot().getLocation(),
+			jointDir = joint.getDirection(),
+			col = nextLoc.col,
+			row = nextLoc.row;
+		
+		// Change invert to multiplier
+		invert = invert === true ? -1 : 1;
+		
+		if (jointDir.axis === "x") {
+			col += (jointDir.incr * invert);
+		}
+		else {
+			row += (jointDir.incr);
+		}
+		
+		return mBoard.getSlot(col, row);
 	}
 	
 	/* Paint all joints.
