@@ -30,7 +30,10 @@ function Joint(next, prev) {
 	mNextJoint = null,
 	
 	// Reference to previous joint (from tail).
-	mPrevJoint = null;
+	mPrevJoint = null,
+	
+	// Direction data object (see Snake.prototype.parseDirection).
+	mDirection = null;
 	
 	/*
 	 * PUBLIC VARIABLES
@@ -113,6 +116,19 @@ function Joint(next, prev) {
 			"Previous joint must be a valid Joint object or null.");
 	};
 	
+	/* Returns the direction data object.
+	*/
+	this.getDirection = function() {
+		return sys.u.deepCopy(mDirection);
+	};
+	
+	/* Sets the direction of the joint for the next game step.
+		direction - Travel direction string ("left", "right", "up", or "down").
+	*/
+	this.setDirection = function(direction) {
+		mDirection = Joint.prototype.parseDirection(direction);
+	};
+	
 	/*
 	 * PRIVATE FUNCTIONS
 	*/
@@ -121,12 +137,20 @@ function Joint(next, prev) {
 	(function() {
 		mSelf.setNext(next);
 		mSelf.setPrev(prev);
+		
+		// Create prototype alias to Snake.prototype.parseDirection
+		if (Joint.prototype.parseDirection === undefined) {
+			Joint.prototype.parseDirection =
+				sys.c.Snake.prototype.parseDirection;
+		}
 	})();
 }
 
 /*
  * STATIC FUNCTIONS
 */
+
+Joint.prototype = {};
 
 /*
  * STATIC INITIALIZERS
