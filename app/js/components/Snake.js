@@ -58,11 +58,22 @@ function Snake(context, board, settings) {
 	// Starting row for the head.
 	mStartRow = -1,
 	
-	// Starting direction for the snake.
+	/* Starting direction for the snake.
+		{
+			axis: "x" or "y", // Axis of travel.
+			incr: 1 or -1 // 1 for right or down, -1 for left or up.
+		}
+	*/
 	mStartDirection = {
 		axis: "x",
 		incr: 1
-	}
+	},
+	
+	// Current direction for the snake head. Same structure as mStartDirection.
+	mHeadDirection = null,
+	
+	// Current direction for the snake tail. Same structure as mStartDirection.
+	mTailDirection = null;
 	
 	/*
 	 * PUBLIC VARIABLES
@@ -105,6 +116,19 @@ function Snake(context, board, settings) {
 			else {
 				row += mStartDirection.incr;
 			}
+	
+	/* Returns the head joint travel direction data for the next game step.
+	*/
+	this.getDirection = function() {
+		return sys.u.deepCopy(mHeadDirection);
+	};
+	
+	/* Sets the head joint travel direction data for the next game step.
+		direction - Travel direction string ("left", "right", "up", or "down").
+	*/
+	this.setDirection = function(direction) {
+		mHeadDirection = Snake.prototype.parseDirection(direction);
+	};
 		}
 		
 		// Store head and tail
@@ -123,24 +147,9 @@ function Snake(context, board, settings) {
 		mJoints = [];
 	}
 	
-	/* Initializes the start direction object.
 	*/
-	function initDirection() {
-		if (typeof direction === "string") {
-			direction = direction.toLowerCase();
-			
-			switch (direction) {
-				case "left":
-				case "right":
-				case "up":
-				case "down":
-				return direction;
-			}
 		}
 		
-		throw new sys.c.GameError(
-			"Invalid direction string (expected 'left', 'right', 'up', or " +
-			"'down')");
 	}
 	
 	// Initializer
@@ -167,9 +176,11 @@ function Snake(context, board, settings) {
 				parseInt(startRow, 10) : 18;
 		}
 		
-		// Start direction
-		mStartDirection = Snake.prototype.initDirection(
+		// Set start, current head, and current tail directions
+		mStartDirection = Snake.prototype.parseDirection(
 			settings.startDirection || "right");
+		mHeadDirection = sys.u.deepCopy(mStartDirection);
+		mTailDirection = sys.u.deepCopy(mStartDirection);
 	})();
 }
 
@@ -183,10 +194,11 @@ Snake.prototype = {
 		
 		Returns the converted travel direction data object, or throws an error.
 	*/
-	initDirection: function(direction) {
+	parseDirection: function(direction) {
 		var obj = null;
 		
 		if (typeof direction === "string") {
+			// Convert string
 			direction = direction.toLowerCase();
 			
 			switch (direction) {
@@ -207,6 +219,11 @@ Snake.prototype = {
 				break;
 				
 			}
+		}
+		else if (typeof direction === "object" &&
+			direction.axis !== undefined && direction.incr !== undefined) {
+			// Copy data object
+			obj = sys.u.deepCopy(direction);
 		}
 		
 		if (obj === null) {
