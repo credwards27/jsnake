@@ -51,6 +51,9 @@ function Snake(context, board, settings) {
 	// Tail joint.
 	mTail = null,
 	
+	// Head joint slot.
+	mHeadSlot = null,
+	
 	// Snake line width.
 	mWidth = typeof settings.width === "number" ?
 		settings.width : mBoard.getSlotSize().width,
@@ -150,6 +153,7 @@ function Snake(context, board, settings) {
 			mHead = newJoint;
 			mHead.setSlot(mBoard.getSlot(mStartCol, mStartRow));
 			mHead.setDirection(mStartDirection);
+			mHeadSlot = mHead.getSlot();
 		}
 		else {
 			// Attach new joint to tail
@@ -185,6 +189,7 @@ function Snake(context, board, settings) {
 		// Set slot for new head
 		mHead.setSlot(newSlot);
 		mHead.setDirection(mHeadDirection);
+		mHeadSlot = mHead.getSlot();
 	};
 	
 	/* Update loop actions.
@@ -195,6 +200,7 @@ function Snake(context, board, settings) {
 		
 		// Move if step duration has been reached
 		if (mCurrStep >= mStepDuration) {
+			checkCollisions();
 			mSelf.move();
 			mLastDirection = sys.u.deepCopy(mHeadDirection);
 			mCurrStep -= mStepDuration;
@@ -278,6 +284,41 @@ function Snake(context, board, settings) {
 		}
 		
 		return mBoard.getSlot(col, row, suppress);
+	}
+	
+	/* Checks for wall collisions.
+	*/
+	function checkCollisions() {
+		var neighbors, validDirections;
+		
+		if (getNextSlot(mHead, false, true) === null) {
+			// Wall collision, turn random perpendicular direction
+			neighbors = mHeadSlot.getNeighbors();
+			validDirections = [];
+			
+			if (mHeadDirection.axis === "x") {
+				if (neighbors.top !== null) {
+					validDirections.push("up");
+				}
+				
+				if (neighbors.bottom !== null) {
+					validDirections.push("down");
+				}
+			}
+			else {
+				if (neighbors.left !== null) {
+					validDirections.push("left");
+				}
+				
+				if (neighbors.right !== null) {
+					validDirections.push("right");
+				}
+			}
+			
+			mSelf.setDirection(validDirections[
+				Math.floor(Math.random() * validDirections.length)
+			]);
+		}
 	}
 	
 	/* Paint all joints.
