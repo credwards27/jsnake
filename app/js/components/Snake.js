@@ -45,9 +45,19 @@ function Snake(context, board, settings) {
 	// Tail joint.
 	mTail = null,
 	
-	// Snake width.
-	mWidth = mWidth = typeof settings.width === "number" ?
+	// Snake line width.
+	mWidth = typeof settings.width === "number" ?
 		settings.width : mBoard.getSlotSize().width,
+	
+	// Snake line color.
+	mLineColor = typeof settings.color === "string" ?
+		settings.color : "#000000;",
+	
+	// Snake line cap shape.
+	mLineCap = "round",
+	
+	// Snake line join shape.
+	mLineJoin = "round",
 	
 	// Starting length (number of joints).
 	mStartLength = -1,
