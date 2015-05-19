@@ -116,7 +116,7 @@ function Snake(context, board, settings) {
 			mSelf.addJoint();
 		}
 		
-		console.log(mSelf);
+		paint();
 	};
 	
 	/* Returns the head joint travel direction data for the next game step.
