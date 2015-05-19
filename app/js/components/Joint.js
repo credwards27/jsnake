@@ -40,6 +40,15 @@ function Joint(next, prev) {
 	 * PRIVILEGED FUNCTIONS
 	*/
 	
+	/* Destructor for joint object.
+	*/
+	this.destroyJoint = function() {
+		mSlot = null;
+		mNextJoint = null;
+		mPrevJoint = null;
+		mSelf = null;
+	};
+	
 	/* Returns the slot that the joing occupies, or null if no slot is set.
 	*/
 	this.getSlot = function() {
