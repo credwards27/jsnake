@@ -163,6 +163,17 @@ function Snake(context, board, settings) {
 	/* Moves the snake.
 	*/
 	this.move = function() {
+		var newTail = mTail.getNext();
+		
+		// Current tail becomes new head
+		mHead.setNext(mTail);
+		mTail.setPrev(mHead);
+		mTail.setNext(null);
+		newTail.setPrev(null);
+		
+		// Update links
+		mHead = mTail;
+		mTail = newTail;
 	};
 	
 	/*
