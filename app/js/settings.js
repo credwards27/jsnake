@@ -13,10 +13,7 @@ var settings = {};
 // Game manager settings.
 settings.gm = {
 	// Frames per second.
-	fps: 60,
-	
-	// Snake slot movements per second.
-	speed: 3
+	fps: 60
 };
 
 // Game board settings.
@@ -27,8 +24,10 @@ settings.board = {
 
 // Snake settings.
 settings.snake = {
-	startLength: 5,
-	startCol: 8,
+	// Snake slot movements per second.
+	speed: 5,
+	startLength: 15,
+	startCol: 15,
 	startRow: 16,
 	startDirection: "right",
 	width: 16,
