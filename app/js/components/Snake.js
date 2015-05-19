@@ -114,7 +114,8 @@ function Snake(context, board, settings) {
 		Returns the new joint.
 	*/
 	this.addJoint = function() {
-		var newJoint = new sys.c.Joint();
+		var newJoint = new sys.c.Joint(),
+			tailLoc, col, row;
 		mLength++;
 		
 		if (mLength === 1) {
@@ -128,6 +129,19 @@ function Snake(context, board, settings) {
 			// Attach new joint to tail
 			mTail.setPrev(newJoint);
 			newJoint.setNext(mTail);
+			
+			tailLoc = mTail.getSlot().getLocation();
+			col = tailLoc.col;
+			row = tailLoc.row;
+			
+			if (mTailDirection.axis === "x") {
+				col -= mTailDirection.incr;
+			}
+			else {
+				row -= mTailDirection.incr;
+			}
+			
+			newJoint.setSlot(mBoard.getSlot(col, row));
 			newJoint.setDirection(mTail.getDirection());
 		}
 		
