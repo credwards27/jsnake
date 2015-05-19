@@ -168,6 +168,20 @@ function Snake(context, board, settings) {
 	/* Paint all joints.
 	*/
 	this.paint = function() {
+		var ctx = sys.g.context;
+		ctx.save();
+		ctx.beginPath();
+		
+		ctx.strokeStyle = mLineColor;
+		ctx.lineWidth = mWidth;
+		ctx.lineCap = mLineCap;
+		ctx.lineJoin = mLineJoin;
+		
+		mHead.paint(true);
+		eachJoint(paintJoint);
+		
+		ctx.stroke();
+		ctx.restore();
 	};
 	
 	/*
@@ -212,6 +226,7 @@ function Snake(context, board, settings) {
 		joint - Joint object to be painted.
 	*/
 	function paintJoint(joint) {
+		joint.paint();
 	}
 	
 	// Initializer

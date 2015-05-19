@@ -142,8 +142,18 @@ function Joint(next, prev) {
 	};
 	
 	/* Paints the joint onto the canvas context.
+		moveOnly - True to move context only without drawing a point, omit
+			otherwise.
 	*/
-	this.paint = function() {
+	this.paint = function(moveOnly) {
+		var ctx = sys.g.context;
+		
+		if (moveOnly === true) {
+			ctx.moveTo(mSlotCoords.x, mSlotCoords.y);
+		}
+		else {
+			ctx.lineTo(mSlotCoords.x, mSlotCoords.y);
+		}
 	};
 	
 	/*
