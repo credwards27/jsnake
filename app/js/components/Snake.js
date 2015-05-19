@@ -120,7 +120,10 @@ function Snake(context, board, settings) {
 		direction - Travel direction string ("left", "right", "up", or "down").
 	*/
 	this.setDirection = function(direction) {
-		mHeadDirection = Snake.prototype.parseDirection(direction);
+		direction = Snake.prototype.parseDirection(direction);
+		mHeadDirection.axis = direction.axis;
+		mHeadDirection.incr = direction.incr;
+		mHead.setDirection(direction, true);
 	};
 	
 	/* Adds a joint to the tail.
