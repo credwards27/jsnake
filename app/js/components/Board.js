@@ -80,10 +80,12 @@ function Board(canvas, context, settings) {
 	/* Returns the slot for a specified column and row index.
 		col - Column index.
 		row - Row index.
+		suppress - True to suppress out of range errors and return null instead,
+			omit otherwise.
 		
 		Throws an error if out of range of the grid matrix.
 	*/
-	this.getSlot = function(col, row) {
+	this.getSlot = function(col, row, suppress) {
 		// Verify numbers
 		if (typeof col !== "number" || typeof row !== "number") {
 			throw new sys.c.GameError(
@@ -96,6 +98,10 @@ function Board(canvas, context, settings) {
 		
 		// Check if in range
 		if (col >= mColumns || row >= mRows || col < 0 || row < 0) {
+			if (suppress === true) {
+				return null;
+			}
+			
 			throw new sys.c.GameError(
 				"Slot " + col + ":" + row + " is out of range.");
 		}

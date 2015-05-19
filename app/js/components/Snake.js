@@ -249,11 +249,13 @@ function Snake(context, board, settings) {
 		
 		joint - Joint object for which to retrieve an adjacent slot.
 		invert - True to get slot behind joint, omit for slot in front of joint.
+		suppress - True to suppress out of range error and return null instead,
+			omit otherwise.
 		
 		Returns a slot object in front of or behind specified joint (depending
 			on invert flag).
 	*/
-	function getNextSlot(joint, invert) {
+	function getNextSlot(joint, invert, suppress) {
 		if ((joint instanceof sys.c.Joint) === false) {
 			throw new sys.c.GameError(
 				"Parameter 'joint' must be a Joint object.");
@@ -275,7 +277,7 @@ function Snake(context, board, settings) {
 			row += (jointDir.incr);
 		}
 		
-		return mBoard.getSlot(col, row);
+		return mBoard.getSlot(col, row, suppress);
 	}
 	
 	/* Paint all joints.
