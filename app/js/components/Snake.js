@@ -36,6 +36,9 @@ function Snake(context, board, settings) {
 	// Reference to game board object.
 	mBoard = board,
 	
+	// Reference to key code constants.
+	mKeys = sys.u.keys,
+	
 	// Array of joints (for deletion).
 	mJoints = [],
 	
@@ -287,11 +290,52 @@ function Snake(context, board, settings) {
 		joint.paint();
 	}
 	
+	/* Input handler for direction changing.
+		key - Key code pressed.
+	*/
+	function changeDirection(key) {
+		switch (key) {
+			// Left
+			case mKeys.A:
+			case mKeys.ARROW_LEFT:
+			if (mLastDirection.axis === "y") {
+				mSelf.setDirection("left");
+			}
+			break;
+			
+			// Right
+			case mKeys.D:
+			case mKeys.ARROW_RIGHT:
+			if (mLastDirection.axis === "y") {
+				mSelf.setDirection("right");
+			}
+			break;
+			
+			// Up
+			case mKeys.W:
+			case mKeys.ARROW_UP:
+			if (mLastDirection.axis === "x") {
+				mSelf.setDirection("up");
+			}
+			break;
+			
+			// Down
+			case mKeys.S:
+			case mKeys.ARROW_DOWN:
+			if (mLastDirection.axis === "x") {
+				mSelf.setDirection("down");
+			}
+			break;
+		}
+	}
+	
 	// Initializer
 	(function() {
 		var startLength = settings.startLength,
 			startCol = settings.startCol,
-			startRow = settings.startRow;
+			startRow = settings.startRow,
+			input = sys.g.inputManager,
+			keys = sys.u.keys;
 		
 		// Store start length
 		if (typeof startLength === "number") {
@@ -316,6 +360,20 @@ function Snake(context, board, settings) {
 			settings.startDirection || "right");
 		mHeadDirection = sys.u.deepCopy(mStartDirection);
 		mLastDirection = sys.u.deepCopy(mStartDirection);
+		
+		// Attach input actions
+		input.onInput(mKeys.A, "on", changeDirection, mKeys.A);
+		input.onInput(mKeys.D, "on", changeDirection, mKeys.D);
+		input.onInput(mKeys.W, "on", changeDirection, mKeys.W);
+		input.onInput(mKeys.S, "on", changeDirection, mKeys.S);
+		input.onInput(mKeys.ARROW_LEFT, "on", changeDirection,
+			mKeys.ARROW_LEFT);
+		input.onInput(mKeys.ARROW_RIGHT, "on", changeDirection,
+			mKeys.ARROW_RIGHT);
+		input.onInput(mKeys.ARROW_UP, "on", changeDirection, mKeys.ARROW_UP);
+		input.onInput(mKeys.ARROW_DOWN, "on", changeDirection,
+			mKeys.ARROW_DOWN);
+		input.onInput(mKeys.SPACE, "on", mSelf.update);
 	})();
 }
 
