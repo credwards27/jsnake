@@ -136,9 +136,11 @@ function Joint(next, prev) {
 	
 	/* Sets the direction of the joint for the next game step.
 		direction - Travel direction string ("left", "right", "up", or "down").
+		reference - If direction is a data object, setting reference to true
+			will pass direction by reference instead of deep copying it.
 	*/
-	this.setDirection = function(direction) {
-		mDirection = Joint.prototype.parseDirection(direction);
+	this.setDirection = function(direction, reference) {
+		mDirection = Joint.prototype.parseDirection(direction, reference);
 	};
 	
 	/* Paints the joint onto the canvas context.

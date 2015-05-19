@@ -279,10 +279,12 @@ function Snake(context, board, settings) {
 Snake.prototype = {
 	/* Converts a travel direction string to a travel direction data object.
 		direction - Travel direction string ("left", "right", "up", or "down").
+		reference - If direction is a data object, setting reference to true
+			will pass direction by reference instead of deep copying it.
 		
 		Returns the converted travel direction data object, or throws an error.
 	*/
-	parseDirection: function(direction) {
+	parseDirection: function(direction, reference) {
 		var obj = null;
 		
 		if (typeof direction === "string") {
@@ -291,33 +293,39 @@ Snake.prototype = {
 			
 			switch (direction) {
 				case "left":
-				obj = { axis: "x", incr: 1 };
-				break;
-				
-				case "right":
 				obj = { axis: "x", incr: -1 };
 				break;
 				
+				case "right":
+				obj = { axis: "x", incr: 1 };
+				break;
+				
 				case "up":
-				obj = { axis: "y", incr: 1 };
+				obj = { axis: "y", incr: -1 };
 				break;
 				
 				case "down":
-				obj = { axis: "y", incr: -1 };
+				obj = { axis: "y", incr: 1 };
 				break;
 				
 			}
 		}
 		else if (typeof direction === "object" &&
 			direction.axis !== undefined && direction.incr !== undefined) {
-			// Copy data object
-			obj = sys.u.deepCopy(direction);
+			if (reference !== true) {
+				// Copy data object
+				obj = sys.u.deepCopy(direction);
+			}
+			else {
+				// Return reference
+				obj = direction;
+			}
 		}
 		
 		if (obj === null) {
 			throw new sys.c.GameError(
-				"Invalid direction string (expected 'left', 'right', 'up', or " +
-				"'down')");
+				"Invalid direction string (expected 'left', 'right', 'up' " +
+				"or 'down')");
 		}
 		
 		return obj;
