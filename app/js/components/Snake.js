@@ -36,8 +36,8 @@ function Snake(context, board, settings) {
 	// Reference to game board object.
 	mBoard = board,
 	
-	// Snake joint array (chain of slots).
-	mJoints = [],
+	// Number of joints in the snake.
+	mLength = 0,
 	
 	// Head joint.
 	mHead = null,
@@ -86,36 +86,16 @@ function Snake(context, board, settings) {
 	/* Initialize the snake.
 	*/
 	this.init = function() {
-		var col = mStartCol,
-			row = mStartRow,
-			lastJoint = null,
-			currJoint, i;
-		
 		// Reset joints array
 		clearJoints();
 		
 		// Create and connect joints from head to tail
-		for (i=0; i<mStartLength; i++) {
-			// Create and connect the joint
-			currJoint = new sys.c.Joint(lastJoint);
-			currJoint.setSlot(mBoard.getSlot(col, row));
-			mJoints.push(currJoint);
-			
-			// Store current joint as 'previous' in last joint created
-			if (lastJoint !== null) {
-				lastJoint.setPrev(currJoint);
-			}
-			
-			// Store current joint for next iteration
-			lastJoint = currJoint;
-			
-			// Move to the next slot location
-			if (mStartDirection.axis === "x") {
-				col += mStartDirection.incr;
-			}
-			else {
-				row += mStartDirection.incr;
-			}
+		for (var i=0; i<mStartLength; i++) {
+			mSelf.addJoint();
+		}
+		
+		console.log(mSelf);
+	};
 	
 	/* Returns the head joint travel direction data for the next game step.
 	*/
@@ -129,27 +109,69 @@ function Snake(context, board, settings) {
 	this.setDirection = function(direction) {
 		mHeadDirection = Snake.prototype.parseDirection(direction);
 	};
+	
+	/* Adds a joint to the tail.
+		Returns the new joint.
+	*/
+	this.addJoint = function() {
+		var newJoint = new sys.c.Joint();
+		mLength++;
+		
+		if (mLength === 1) {
+			// Set new joint as head
+			newJoint
+			mHead = newJoint;
+			mHead.setSlot(mBoard.getSlot(mStartCol, mStartRow));
+			mHead.setDirection(mStartDirection);
+		}
+		else {
+			// Attach new joint to tail
+			mTail.setPrev(newJoint);
+			newJoint.setNext(mTail);
+			newJoint.setDirection(mTail.getDirection());
 		}
 		
-		// Store head and tail
-		mHead = mJoints[0];
-		mTail = lastJoint;
+		// Set new joint as the tail
+		mTail = newJoint;
+		return mTail;
 	};
 	
 	/*
 	 * PRIVATE FUNCTIONS
 	*/
 	
+	/* Clears all joints.
+	*/
 	function clearJoints() {
-		for (var i=0, l=mJoints.length; i<l; i++) {
-			mJoints.pop();
-		}
-		mJoints = [];
+		eachJoint(function(joint) {
+			joint.destroyJoint();
+		});
 	}
 	
+	/* Iterates over all joints from head to tail and performs a specified
+		action on each iteration.
+		
+		action - Function to run on each iteration.
+			joint - Current joint that the iterator is pointing to.
+		reverse - True to iterate over joints from tail to head, omit otherwise.
 	*/
+	function eachJoint(action, reverse) {
+		var curr = mHead,
+			next = "getPrev",
+			i;
+		
+		if (reverse === true) {
+			curr = mTail;
+			next = "getNext";
 		}
 		
+		for (i=0; i<mLength; i++) {
+			if (typeof action === "function") {
+				action(curr);
+			}
+			
+			curr = curr[next]();
+		}
 	}
 	
 	// Initializer
