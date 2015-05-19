@@ -110,6 +110,20 @@ function Board(canvas, context, settings) {
 		return { width: mSlotWidth, height: mSlotHeight };
 	};
 	
+	/* Checks whether or not a column is in range.
+		Returns true if column is in range, false otherwise.
+	*/
+	this.isColumnInRange = function(col) {
+		return col >= 0 && col < mColumns;
+	};
+	
+	/* Checks whether or not a row is in range.
+		Returns true if row is in range, false otherwise.
+	*/
+	this.isRowInRange = function(row) {
+		return row >= 0 && row < mRows;
+	};
+	
 	/*
 	 * PRIVATE FUNCTIONS
 	*/
