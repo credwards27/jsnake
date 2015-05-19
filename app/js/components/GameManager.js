@@ -85,13 +85,15 @@ function GameManager(id, settings) {
 	
 	// Initializer
 	(function() {
-		// Set FPS and MSPF
+		// Update frames per second to value in settings if available
 		if (typeof settings.fps === "number" && settings.fps > 0) {
 			FPS = settings.fps;
 		}
 		
+		// Set milliseconds per frame cache
 		MSPF = 1000 / FPS;
 		
+		// Find game canvas
 		mCanvas = document.getElementById(id);
 		
 		// Error check
@@ -100,14 +102,17 @@ function GameManager(id, settings) {
 				"Parameter 'id' must be the ID string for a canvas element.");
 		}
 		
+		// Get canvas context and store as system global
 		mContext = mCanvas.getContext("2d");
 		sys.g.context = mContext;
 		
 		// Instantiate subsystems
 		mInputManager = new sys.c.InputManager(mCanvas);
+		sys.g.inputManager = mInputManager;
 		mBoard = new sys.c.Board(mCanvas, mContext, sys.g.settings.board);
 		mSnake = new sys.c.Snake(mContext, mBoard, sys.g.settings.snake);
 		
+		// Initialize snake object
 		mSnake.init();
 		window.snake = mSnake;
 	})();
