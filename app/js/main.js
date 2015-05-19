@@ -16,8 +16,17 @@ var jsnake;
 jsnake = jsnake || {
 	// Collection of global objects and variables for the system.
 	g: {
+		// Game settings object.
+		settings: null,
+		
+		// Reference to 2D canvas context.
+		context: null,
+		
 		// Game manager instance.
-		gameManager: null
+		gameManager: null,
+		
+		// Input manager instance.
+		inputManager: null,
 	},
 	
 	// Collection of object classes for the system.
