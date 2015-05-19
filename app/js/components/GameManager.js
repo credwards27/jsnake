@@ -28,6 +28,15 @@ function GameManager(id, settings) {
 	// Milliseconds per frame.
 	MSPF = -1,
 	
+	// Current time in milliseconds.
+	mCurrTime = null,
+	
+	// Time passed since last loop update.
+	mDeltaTime = 0,
+	
+	// Elapsed time since the game loop last started.
+	mElapsedTime = 0,
+	
 	// Input manager instance container.
 	mInputManager = null,
 	
@@ -58,6 +67,7 @@ function GameManager(id, settings) {
 	*/
 	this.startLoop = function() {
 		if (mLoopId === -1) {
+			mElapsedTime = (new Date()).getTime();
 			mLoopId = setInterval(function() {
 				update();
 			}, MSPF);
@@ -78,9 +88,18 @@ function GameManager(id, settings) {
 	*/
 	
 	function update() {
-		console.log("running");
+		// Calculate delta time
+		mCurrTime = (new Date()).getTime();
+		mDeltaTime = mCurrTime - mElapsedTime;
 		
+		// Clear the canvas
 		mContext.clearRect(0, 0, mCanvas.width, mCanvas.height);
+		
+		// Run object update functions
+		mSnake.update(mDeltaTime);
+		
+		// Update elapsed time
+		mElapsedTime += mDeltaTime;
 	}
 	
 	// Initializer
@@ -114,6 +133,10 @@ function GameManager(id, settings) {
 		
 		// Initialize snake object
 		mSnake.init();
+		
+		// Start the game loop
+		mSelf.startLoop();
+		
 		window.snake = mSnake;
 	})();
 };
