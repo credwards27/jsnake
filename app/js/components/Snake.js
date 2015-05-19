@@ -36,6 +36,9 @@ function Snake(context, board, settings) {
 	// Reference to game board object.
 	mBoard = board,
 	
+	// Array of joints (for deletion).
+	mJoints = [],
+	
 	// Number of joints in the snake.
 	mLength = 0,
 	
@@ -126,6 +129,8 @@ function Snake(context, board, settings) {
 	this.addJoint = function() {
 		var newJoint = new sys.c.Joint(),
 			tailLoc, col, row;
+		// Add new joint and adjust length
+		mJoints.push(newJoint);
 		mLength++;
 		
 		if (mLength === 1) {
@@ -183,9 +188,12 @@ function Snake(context, board, settings) {
 	/* Clears all joints.
 	*/
 	function clearJoints() {
-		eachJoint(function(joint) {
-			joint.destroyJoint();
-		});
+		for (var i=mJoints.length-1; i>=0; i--) {
+			mJoints[i].destroyJoint();
+			mJoints.pop();
+		}
+		
+		mLength = 0;
 	}
 	
 	/* Iterates over all joints from head to tail and performs a specified
