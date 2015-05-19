@@ -27,11 +27,12 @@ settings.board = {
 
 // Snake settings.
 settings.snake = {
-	width: 16,
 	startLength: 5,
-	startCol: 12,
-	startRow: 18,
-	startDirection: "right"
+	startCol: 8,
+	startRow: 16,
+	startDirection: "right",
+	width: 16,
+	color: "#000000"
 };
 
 sys.g.settings = settings;
