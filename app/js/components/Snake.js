@@ -165,25 +165,6 @@ function Snake(context, board, settings) {
 	this.move = function() {
 	};
 	
-	/* Paint all joints.
-	*/
-	this.paint = function() {
-		var ctx = sys.g.context;
-		ctx.save();
-		ctx.beginPath();
-		
-		ctx.strokeStyle = mLineColor;
-		ctx.lineWidth = mWidth;
-		ctx.lineCap = mLineCap;
-		ctx.lineJoin = mLineJoin;
-		
-		mHead.paint(true);
-		eachJoint(paintJoint);
-		
-		ctx.stroke();
-		ctx.restore();
-	};
-	
 	/*
 	 * PRIVATE FUNCTIONS
 	*/
@@ -221,6 +202,25 @@ function Snake(context, board, settings) {
 			curr = curr[next]();
 		}
 	}
+	
+	/* Paint all joints.
+	*/
+	function paint() {
+		var ctx = sys.g.context;
+		ctx.save();
+		ctx.beginPath();
+		
+		ctx.strokeStyle = mLineColor;
+		ctx.lineWidth = mWidth;
+		ctx.lineCap = mLineCap;
+		ctx.lineJoin = mLineJoin;
+		
+		mHead.paint(true);
+		eachJoint(paintJoint);
+		
+		ctx.stroke();
+		ctx.restore();
+	};
 	
 	/* Signals a joint to paint itself.
 		joint - Joint object to be painted.
