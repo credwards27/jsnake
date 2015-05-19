@@ -160,7 +160,8 @@ function Snake(context, board, settings) {
 	/* Moves the snake.
 	*/
 	this.move = function() {
-		var newTail = mTail.getNext();
+		var newTail = mTail.getNext(),
+			newSlot = getNextSlot(mHead);
 		
 		// Current tail becomes new head
 		mHead.setNext(mTail);
@@ -171,6 +172,10 @@ function Snake(context, board, settings) {
 		// Update links
 		mHead = mTail;
 		mTail = newTail;
+		
+		// Set slot for new head
+		mHead.setSlot(newSlot);
+		mHead.setDirection(mHeadDirection);
 	};
 	
 	/*
