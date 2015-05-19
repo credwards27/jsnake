@@ -136,6 +136,11 @@ function Snake(context, board, settings) {
 		return mTail;
 	};
 	
+	/* Moves the snake.
+	*/
+	this.move = function() {
+	};
+	
 	/*
 	 * PRIVATE FUNCTIONS
 	*/
