@@ -251,21 +251,20 @@ function Snake(context, board, settings) {
 	/* Paint all joints.
 	*/
 	function paint() {
-		var ctx = sys.g.context;
-		ctx.save();
-		ctx.beginPath();
+		mContext.save();
+		mContext.beginPath();
 		
-		ctx.strokeStyle = mLineColor;
-		ctx.lineWidth = mWidth;
-		ctx.lineCap = mLineCap;
-		ctx.lineJoin = mLineJoin;
+		mContext.strokeStyle = mLineColor;
+		mContext.lineWidth = mWidth;
+		mContext.lineCap = mLineCap;
+		mContext.lineJoin = mLineJoin;
 		
 		mHead.paint(true);
 		eachJoint(paintJoint);
 		
-		ctx.stroke();
-		ctx.restore();
-	};
+		mContext.stroke();
+		mContext.restore();
+	}
 	
 	/* Signals a joint to paint itself.
 		joint - Joint object to be painted.
