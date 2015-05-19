@@ -129,6 +129,11 @@ function Joint(next, prev) {
 		mDirection = Joint.prototype.parseDirection(direction);
 	};
 	
+	/* Paints the joint onto the canvas context.
+	*/
+	this.paint = function() {
+	};
+	
 	/*
 	 * PRIVATE FUNCTIONS
 	*/

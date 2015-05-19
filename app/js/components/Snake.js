@@ -141,6 +141,11 @@ function Snake(context, board, settings) {
 	this.move = function() {
 	};
 	
+	/* Paint all joints.
+	*/
+	this.paint = function() {
+	};
+	
 	/*
 	 * PRIVATE FUNCTIONS
 	*/
@@ -177,6 +182,12 @@ function Snake(context, board, settings) {
 			
 			curr = curr[next]();
 		}
+	}
+	
+	/* Signals a joint to paint itself.
+		joint - Joint object to be painted.
+	*/
+	function paintJoint(joint) {
 	}
 	
 	// Initializer
