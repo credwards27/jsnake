@@ -136,8 +136,6 @@ function GameManager(id, settings) {
 		
 		// Start the game loop
 		mSelf.startLoop();
-		
-		window.snake = mSnake;
 	})();
 };
 
