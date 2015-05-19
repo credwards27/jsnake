@@ -77,16 +77,26 @@ function Snake(context, board, settings) {
 	this.init = function() {
 		var col = mStartCol,
 			row = mStartRow,
-			joint, i;
+			lastJoint = null,
+			currJoint, i;
 		
 		// Reset joints array
 		clearJoints();
 		
+		// Create and connect joints from head to tail
 		for (i=0; i<mStartLength; i++) {
 			// Create and connect the joint
-			joint = new sys.c.Joint();
-			joint.setSlot(mBoard.getSlot(col, row));
-			mJoints.push(joint);
+			currJoint = new sys.c.Joint(lastJoint);
+			currJoint.setSlot(mBoard.getSlot(col, row));
+			mJoints.push(currJoint);
+			
+			// Store current joint as 'previous' in last joint created
+			if (lastJoint !== null) {
+				lastJoint.setPrev(currJoint);
+			}
+			
+			// Store current joint for next iteration
+			lastJoint = currJoint;
 			
 			// Move to the next slot location
 			if (mStartDirection.axis === "x") {
@@ -97,8 +107,9 @@ function Snake(context, board, settings) {
 			}
 		}
 		
+		// Store head and tail
 		mHead = mJoints[0];
-		console.log(mSelf);
+		mTail = lastJoint;
 	};
 	
 	/*

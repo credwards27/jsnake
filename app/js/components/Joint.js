@@ -8,9 +8,13 @@
 "use strict";
 
 /* Constructor for Joint object.
+	next - Reference to next joint object (towards head).
+	prev - Reference to previous joint object (from tail).
 */
-function Joint() {
+function Joint(next, prev) {
 	// Default parameters
+	next = next === undefined ? null : next;
+	prev = prev === undefined ? null : prev;
 	
 	/*
 	 * PRIVATE VARIABLES
@@ -20,7 +24,13 @@ function Joint() {
 	var mSelf = this,
 	
 	// Reference to the slot object that the joint occupies.
-	mSlot = null;
+	mSlot = null,
+	
+	// Reference to next joint (towards head).
+	mNextJoint = null,
+	
+	// Reference to previous joint (from tail).
+	mPrevJoint = null;
 	
 	/*
 	 * PUBLIC VARIABLES
@@ -50,12 +60,58 @@ function Joint() {
 		}
 	};
 	
+	/* Gets the next joint (towards head).
+		Returns reference to the next joint object.
+	*/
+	this.getNext = function() {
+		return mNextJoint;
+	};
+	
+	/* Sets next joint object (towards head).
+		joint - Reference to joint object. Must be Joint instance or null.
+		
+		Returns the new next joint if set successfully.
+	*/
+	this.setNext = function(joint) {
+		if (joint === null || joint instanceof sys.c.Joint) {
+			mNextJoint = joint;
+			return mNextJoint;
+		}
+		
+		throw new sys.c.GameError(
+			"Next joint must be a valid Joint object or null.");
+	};
+	
+	/* Gets the previous joint (from tail).
+		Returns reference to the previous joint object.
+	*/
+	this.getPrev = function() {
+		return mPrevJoint;
+	};
+	
+	/* Sets previous joint object (from tail).
+		joint - Reference to joint object. Must be Joint instance or null.
+		
+		Returns the new previous joint if set successfully.
+	*/
+	this.setPrev = function(joint) {
+		if (joint === null || joint instanceof sys.c.Joint) {
+			mPrevJoint = joint;
+			return mPrevJoint;
+		}
+		
+		throw new sys.c.GameError(
+			"Previous joint must be a valid Joint object or null.");
+	};
+	
 	/*
 	 * PRIVATE FUNCTIONS
 	*/
 	
 	// Initializer
 	(function() {
+		mSelf.setNext(next);
+		mSelf.setPrev(prev);
 	})();
 }
 
