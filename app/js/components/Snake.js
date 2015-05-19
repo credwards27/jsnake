@@ -85,8 +85,8 @@ function Snake(context, board, settings) {
 	// Current direction for the snake head. Same structure as mStartDirection.
 	mHeadDirection = null,
 	
-	// Current direction for the snake tail. Same structure as mStartDirection.
-	mTailDirection = null;
+	// Travel direction on the last game step.
+	mLastDirection = null;
 	
 	/*
 	 * PUBLIC VARIABLES
@@ -176,6 +176,15 @@ function Snake(context, board, settings) {
 		// Set slot for new head
 		mHead.setSlot(newSlot);
 		mHead.setDirection(mHeadDirection);
+	};
+	
+	/* Update loop actions.
+	*/
+	this.update = function() {
+		mContext.clearRect(0, 0, 640, 480);
+		mSelf.move();
+		mLastDirection = sys.u.deepCopy(mHeadDirection);
+		paint();
 	};
 	
 	/*
@@ -306,7 +315,7 @@ function Snake(context, board, settings) {
 		mStartDirection = Snake.prototype.parseDirection(
 			settings.startDirection || "right");
 		mHeadDirection = sys.u.deepCopy(mStartDirection);
-		mTailDirection = sys.u.deepCopy(mStartDirection);
+		mLastDirection = sys.u.deepCopy(mStartDirection);
 	})();
 }
 
