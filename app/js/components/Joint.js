@@ -26,6 +26,15 @@ function Joint(next, prev) {
 	// Reference to the slot object that the joint occupies.
 	mSlot = null,
 	
+	// Cached slot location indicies.
+	mSlotLocation = null,
+	
+	// Cached slot coordinates data.
+	mSlotCoords = null,
+	
+	// Cached slot neighbor location indices.
+	mSlotNeighbors = null,
+	
 	// Reference to next joint (towards head).
 	mNextJoint = null,
 	
@@ -65,6 +74,9 @@ function Joint(next, prev) {
 		if (slot instanceof sys.c.Slot) {
 			mSlot = slot;
 			mSlot.setContents(mSelf);
+			mSlotLocation = mSlot.getLocation();
+			mSlotCoords = mSlot.getCoords();
+			mSlotNeighbors = mSlot.getNeighbors();
 		}
 		else {
 			throw new sys.c.GameError(
